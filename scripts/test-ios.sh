@@ -17,9 +17,7 @@ candidates.sort(key=lambda device: ('iPhone 17 Pro Max' not in device['name'], d
 print(candidates[0]['udid'])
 PY
 )
+printf '%s\n' "$simulator_id" > .build/simulator-id.txt
 xcodebuild -project Scrollshot.xcodeproj -scheme Scrollshot -configuration Debug \
   -destination "platform=iOS Simulator,id=$simulator_id" -derivedDataPath .build/simulator \
-  -parallel-testing-enabled NO CODE_SIGNING_ALLOWED=NO test
-xcrun simctl launch "$simulator_id" local.scrollshot.iphone
-sleep 2
-xcrun simctl io "$simulator_id" screenshot .build/home-simulator.png
+  -parallel-testing-enabled NO CODE_SIGNING_ALLOWED=NO test | tee .build/image-tests.log

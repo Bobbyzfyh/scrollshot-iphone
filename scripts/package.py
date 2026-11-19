@@ -5,7 +5,7 @@ import zipfile
 
 root = Path(__file__).resolve().parents[1]
 allowed_dirs = {'Core', 'Scrollshot', 'Scrollshot.xcodeproj', 'scripts', 'tests', '.github'}
-allowed_files = {'.gitignore', '.gitattributes', 'README.md', 'VALIDATION.md', 'REFERENCES.md', 'APPLE-SAMPLE-LICENSE.txt'}
+allowed_files = {'.gitignore', '.gitattributes', 'README.md', 'VALIDATION.md', 'REFERENCES.md', 'WINDOWS_INSTALL.md', 'APPLE-SAMPLE-LICENSE.txt'}
 paths = sorted(path for path in root.rglob('*') if path.is_file() and (
     path.relative_to(root).parts[0] in allowed_dirs or path.relative_to(root).as_posix() in allowed_files
 ) and '__pycache__' not in path.parts and 'xcuserdata' not in path.parts)

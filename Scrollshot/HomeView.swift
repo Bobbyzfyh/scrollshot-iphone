@@ -21,7 +21,7 @@ struct HomeView: View {
                         Text("原生版 2.0").font(.caption).foregroundStyle(.secondary)
                     }
                     VStack(alignment: .leading, spacing: 12) {
-                        Image(systemName: "rectangle.portrait.and.arrow.down")
+                        Image(systemName: "arrow.down.document")
                             .font(.system(size: 40, weight: .light)).foregroundStyle(blue)
                         Text("滚动之后，\n就是一张长图。").font(.system(size: 33, weight: .bold, design: .rounded))
                         Text("确认屏幕采集，去微信慢慢滚动。\n回到这里，自动结束并拼接。")
