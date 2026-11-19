@@ -38,7 +38,8 @@ sources = '\n'.join(p.read_text(encoding='utf-8') for p in app.glob('*.swift'))
 for forbidden in ['URLSession', 'WKWebView', 'AVAssetWriter', 'SCRecordingOutput(', 'SCClipBufferingOutput(', 'URLRequest', 'NSLog(', 'print(']:
     assert forbidden not in sources, f'Unexpected persistence/network/logging path: {forbidden}'
 assert 'configuration.capturesAudio = false' in sources
-assert 'configuration.captureMicrophone = false' in sources
+assert 'configuration.showsMicrophoneControl = false' in sources
+assert 'type: .microphone' not in sources and 'type: .audio' not in sources
 assert 'PHPhotoLibrary.requestAuthorization(for: .addOnly)' in sources
 assert 'UIApplication.willEnterForegroundNotification' in sources
 assert 'ss_gate_accept' in sources

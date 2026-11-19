@@ -1,7 +1,5 @@
 import SwiftUI
 import Photos
-import CoreMedia
-import CoreVideo
 @preconcurrency import ScreenCaptureKit
 
 @MainActor
@@ -68,14 +66,17 @@ final class CaptureController: NSObject, ObservableObject {
         // Change phase before awaiting so duplicate picker callbacks cannot start two streams.
         phase = .armed
         let configuration = SCStreamConfiguration()
-        let screen = UIScreen.main.bounds.size
+        guard let screen = UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).first?.screen.bounds.size,
+              screen.width > 0, screen.height > 0 else {
+            deactivatePicker(); _ = await collector.finish()
+            phase = .ready; failure = "无法取得 iPhone 屏幕尺寸，请回到 App 后重新开始。"
+            return
+        }
         configuration.width = 1080
         configuration.height = Int((1080 * max(screen.height, screen.width) / min(screen.height, screen.width)).rounded())
-        configuration.pixelFormat = kCVPixelFormatType_32BGRA
-        configuration.minimumFrameInterval = CMTime(value: 1, timescale: 8)
-        configuration.queueDepth = 3
         configuration.capturesAudio = false
-        configuration.captureMicrophone = false
+        // iOS does not expose the macOS pixel-format / queue / frame-interval controls.
+        // The collector throttles raw screen callbacks; no microphone output is attached.
         do {
             let capture = SCStream(filter: filter, configuration: configuration, delegate: delegate)
             try capture.addStreamOutput(collector, type: .screen, sampleHandlerQueue: collector.queue)
