@@ -13,7 +13,7 @@ xcodebuild -project Scrollshot.xcodeproj -scheme Scrollshot -configuration Relea
 app_path='.build/release/Build/Products/Release-iphoneos/Scrollshot.app'
 codesign --force --sign - --entitlements Scrollshot/Scrollshot.entitlements "$app_path"
 codesign --verify --strict "$app_path"
-codesign -d --entitlements - "$app_path" > .build/embedded-entitlements.plist
+codesign --display --entitlements - --xml "$app_path" > .build/embedded-entitlements.plist
 python3 - <<'PY'
 from pathlib import Path
 import plistlib

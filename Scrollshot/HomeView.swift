@@ -181,7 +181,7 @@ struct HomeView: View {
                 Button { value.wrappedValue = max(0, value.wrappedValue - 1) } label: { Image(systemName: "minus.circle") }
                 Button { value.wrappedValue = min(maximum, value.wrappedValue + 1) } label: { Image(systemName: "plus.circle") }
             }.buttonStyle(.plain)
-            Slider(value: Binding(get: { Double(value.wrappedValue) }, set: { value.wrappedValue = Int($0.rounded()) }), in: 0...Double(max(1, maximum)), step: 1)
+            Slider(value: Binding(get: { Double(value.wrappedValue) }, set: { value.wrappedValue = min(maximum, Int($0.rounded())) }), in: 0...Double(max(1, maximum)), step: 1)
                 .tint(blue)
         }
     }

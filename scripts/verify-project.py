@@ -47,4 +47,4 @@ assert 'ss_archive_can_add' in sources
 assert 'if pendingSince != nil' in sources
 assert 'NSPhotoLibraryUsageDescription' not in info
 print('PASS: project references, iPhone/iOS 27 settings, plist, resource, privacy and capture wiring checks')
-print('NOT RUN: Swift SDK compilation, simulator tests, real-device capture, signing and installation')
+print('This structural check does not run Swift compilation, native image tests, real-device capture or installation.')

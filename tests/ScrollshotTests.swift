@@ -60,6 +60,24 @@ final class ScrollshotTests: XCTestCase {
         XCTAssertThrowsError(try StitchService.plan(frames, crop: CropSettings(top: 900, bottom: 600)))
     }
 
+    func testSplitPNGPagesKeepBoundaryRows() throws {
+        let source = noise(height: 10700)
+        let positions = Array(stride(from: 0, through: 9100, by: 700))
+        let frames = try positions.enumerated().map { index, offset in
+            try frame(source, offset: offset, height: 1600, time: Double(index) * 0.25)
+        }
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let result = try StitchService.render(frames, crop: CropSettings(), directory: directory)
+        XCTAssertEqual(result.height, 10700); XCTAssertEqual(result.files.count, 2)
+        var reconstructed: [UInt8] = []
+        for url in result.files {
+            reconstructed.append(contentsOf: try ImageTools.gray(ImageTools.decode(Data(contentsOf: url))))
+        }
+        XCTAssertEqual(reconstructed.count, source.count)
+        XCTAssertLessThanOrEqual(zip(reconstructed, source).map { abs(Int($0) - Int($1)) }.max() ?? 255, 1)
+    }
+
     func testBriefBadTransitionCanRecoverButUnmatchedTailFails() throws {
         let source = noise(height: 3000)
         let a = try frame(source, offset: 0, height: 1600, time: 0)

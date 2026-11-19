@@ -11,7 +11,7 @@ jobs:
     runs-on: xcode-27
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
       - name: Require iOS 27 SDK
@@ -21,7 +21,7 @@ jobs:
       - name: Build
         # Assumes iphone-native's contents are the repository root.
         run: bash scripts/build-unsigned.sh
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: Scrollshot-UNSIGNED-not-ready-to-install
           path: .build/Scrollshot-unsigned.ipa
