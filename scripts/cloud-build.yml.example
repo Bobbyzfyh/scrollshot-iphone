@@ -1,0 +1,28 @@
+# Optional template. Nothing has been uploaded and no cloud build has been run.
+# Copy to .github/workflows/ios-build.yml in a repository YOU choose.
+# Runner/SDK availability and account quota must be checked before use.
+name: Build unsigned iPhone app
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: xcode-27
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Require iOS 27 SDK
+        run: |
+          xcodebuild -version
+          xcrun --sdk iphoneos --show-sdk-version | awk -F. '{ exit !($1 >= 27) }'
+      - name: Build
+        # Assumes iphone-native's contents are the repository root.
+        run: bash scripts/build-unsigned.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Scrollshot-UNSIGNED-not-ready-to-install
+          path: .build/Scrollshot-unsigned.ipa
+          retention-days: 1

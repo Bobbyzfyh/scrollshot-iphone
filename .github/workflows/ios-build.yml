@@ -1,0 +1,27 @@
+name: Build unsigned iPhone app
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: iphone-build
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: xcode-27
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Verify Apple toolchain
+        run: |
+          xcodebuild -version
+          xcrun --sdk iphoneos --show-sdk-version | awk -F. '{ exit !($1 >= 27) }'
+      - name: Build native app without signing
+        run: bash scripts/build-unsigned.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Scrollshot-UNSIGNED-not-ready-to-install
+          path: .build/Scrollshot-unsigned.ipa
+          retention-days: 1
