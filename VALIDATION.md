@@ -27,14 +27,18 @@
 
 上述 5 项在 [Actions run 44480416148](https://github.com/Bobbyzfyh/scrollshot-iphone/actions/runs/44480416148) 通过，0 failures，Xcode 显示 `TEST SUCCEEDED`。该轮任务最后因可选预览截图时模拟器已关闭而被标记为失败；截图已从必需图片测试中分开，并补齐重启步骤。
 
+最终源码 `3ea1646` 的 [Actions run 44481532714](https://github.com/Bobbyzfyh/scrollshot-iphone/actions/runs/44481532714) 整体通过：iPhone arm64 编译、26 个 C 案例、5 个 iOS 图片测试、权限声明验证及 IPA 打包上传均成功。可选的模拟器预览截图启动超时，没有产出图片，**尚未做界面人工检查**。该截图步骤设置为非阻断，不能用任务整体绿色状态替代其实际结果。
+
+下载产物：`Scrollshot-unsigned.ipa`，197801 字节；已在 Windows 检查 ZIP、arm64 Mach-O、iPhone/iOS 27 配置、所需权限和内嵌屏幕采集声明。无苹果签发描述文件，仍需重新签名安装。
+
 ## 尚未验证，不能视为已完成
 
 - iPhone 17 Pro Max / iOS 27.2.1 的系统采集授权与后台回调。
+- 界面截图人工检查；可选的云端预览未能完成。
 - 系统终止、返回 App 时的真实时序，以及 App 切换动画是否完全排除。
 - 实际微信页面的自动固定区域识别和文字接缝。
 - 真机方向信息、色彩、可读性、PNG 预览、相册保存与分享。
 - 内存、温度与长时间采集；内存上限统计不包含系统额外缓冲和渲染上下文。
 - 免费 Personal Team 是否可签发 Screen Recording entitlement，以及可执行的 Windows 签名安装路线。
-- 完整云构建的最终通过状态及 IPA 下载产物。
 
 不会把 Windows 算法通过写成“手机 App 已可用”。

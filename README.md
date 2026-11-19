@@ -4,6 +4,8 @@
 
 **Xcode 27.1 的 iPhone / arm64 目标已编译通过。当前工程尚未在 iPhone 真机测试，也未取得可在手机上安装的苹果开发签名。** Windows、Ubuntu 和 Mac 已运行共享 C 拼接核心测试，iOS 图片适配与渲染测试另见验证记录。
 
+[最终构建与测试记录](https://github.com/Bobbyzfyh/scrollshot-iphone/actions/runs/44481532714) 中 26 个 C 案例和 5 个 iOS 图片测试通过。可选预览截图未完成，界面与真实微信采集仍待手机验证。
+
 第一版网站与 Scriptable 离线版均保留在原目录。
 
 ## 设计的使用流程
