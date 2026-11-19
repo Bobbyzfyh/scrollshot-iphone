@@ -7,8 +7,8 @@ struct HomeView: View {
     @State private var previewFile: PreviewFile?
     @State private var showCrop = false
     @State private var confirmClear = false
-    private let blue = Color(red: .12, green: .30, blue: .83)
-    private let paper = Color(red: .97, green: .97, blue: .94)
+    private let blue = Color(red: 0.12, green: 0.30, blue: 0.83)
+    private let paper = Color(red: 0.97, green: 0.97, blue: 0.94)
 
     var body: some View {
         NavigationStack {
@@ -32,7 +32,7 @@ struct HomeView: View {
                     if let text = model.failure {
                         Label(text, systemImage: "exclamationmark.circle")
                             .font(.callout).foregroundStyle(.orange).padding()
-                            .background(Color.orange.opacity(.08), in: RoundedRectangle(cornerRadius: 16))
+                            .background(Color.orange.opacity(0.08), in: RoundedRectangle(cornerRadius: 16))
                     }
                     if let text = model.notice { Text(text).font(.callout).foregroundStyle(.secondary) }
 
@@ -63,7 +63,7 @@ struct HomeView: View {
                             .font(.footnote).foregroundStyle(.secondary)
                         Text("只采集屏幕图片，不采集声音，不连接服务器。采集期间可能包含通知内容，请先开启勿扰模式。")
                             .font(.footnote).foregroundStyle(.secondary)
-                    }.padding().background(.white.opacity(.75), in: RoundedRectangle(cornerRadius: 18))
+                    }.padding().background(.white.opacity(0.75), in: RoundedRectangle(cornerRadius: 18))
                 }.padding(22)
             }
             .background(paper)
@@ -148,11 +148,11 @@ struct HomeView: View {
                     ZStack(alignment: .top) {
                         Image(uiImage: image).resizable().scaledToFit()
                         VStack(spacing: 0) {
-                            Color.black.opacity(.5).frame(height: top)
+                            Color.black.opacity(0.5).frame(height: top)
                             Rectangle().fill(blue).frame(height: 2)
                             Spacer(minLength: 0)
                             Rectangle().fill(blue).frame(height: 2)
-                            Color.black.opacity(.5).frame(height: bottom)
+                            Color.black.opacity(0.5).frame(height: bottom)
                         }
                     }
                 }
@@ -173,7 +173,7 @@ struct HomeView: View {
     }
 
     private func cropSlider(_ name: String, value: Binding<Int>, other: Int) -> some View {
-        let maximum = max(0, Int(model.previewFrameSize.height * .65) - other)
+        let maximum = max(0, Int(model.previewFrameSize.height * 0.65) - other)
         return VStack(alignment: .leading, spacing: 6) {
             HStack {
                 Text("\(name)：\(value.wrappedValue) 像素").font(.subheadline)

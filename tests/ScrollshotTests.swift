@@ -38,7 +38,7 @@ final class ScrollshotTests: XCTestCase {
     func testPlanAndRendererReconstructRowsWithoutFlipOrSeams() throws {
         let source = noise(height: 4400)
         let frames = try [0, 713, 1800, 2800].enumerated().map { index, offset in
-            try frame(source, offset: offset, height: 1600, time: Double(index) * .25)
+            try frame(source, offset: offset, height: 1600, time: Double(index) * 0.25)
         }
         let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         defer { try? FileManager.default.removeItem(at: directory) }
@@ -63,8 +63,8 @@ final class ScrollshotTests: XCTestCase {
     func testBriefBadTransitionCanRecoverButUnmatchedTailFails() throws {
         let source = noise(height: 3000)
         let a = try frame(source, offset: 0, height: 1600, time: 0)
-        let good = try frame(source, offset: 400, height: 1600, time: .5)
-        let bad = CapturedFrame(jpeg: a.jpeg, gray: [UInt8](repeating: 0, count: a.gray.count), width: 64, height: 1600, time: .25)
+        let good = try frame(source, offset: 400, height: 1600, time: 0.5)
+        let bad = CapturedFrame(jpeg: a.jpeg, gray: [UInt8](repeating: 0, count: a.gray.count), width: 64, height: 1600, time: 0.25)
         let result = try StitchService.plan([a, bad, good], crop: CropSettings())
         XCTAssertEqual(result.pieces.reduce(0) { $0 + $1.height }, 2000)
         XCTAssertThrowsError(try StitchService.plan([a, bad], crop: CropSettings()))

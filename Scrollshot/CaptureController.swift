@@ -157,7 +157,7 @@ final class CaptureController: NSObject, ObservableObject {
         } else if archive.frames.count == 1 {
             crop = CropSettings(); await generate()
         } else {
-            crop = CropSettings(top: Int(Double(first.height) * .12), bottom: Int(Double(first.height) * .10))
+            crop = CropSettings(top: Int(Double(first.height) * 0.12), bottom: Int(Double(first.height) * 0.10))
             phase = .review
             failure = "未能可靠识别固定栏。请把上、下边界移到可滚动的聊天内容内，再点“重新生成”。"
         }
