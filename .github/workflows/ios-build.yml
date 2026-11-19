@@ -28,4 +28,5 @@ jobs:
           path: |
             .build/Scrollshot-unsigned.ipa
             .build/home-simulator.png
+            .build/embedded-entitlements.plist
           retention-days: 1

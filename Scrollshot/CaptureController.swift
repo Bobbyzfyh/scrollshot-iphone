@@ -1,3 +1,4 @@
+#if !targetEnvironment(simulator)
 import SwiftUI
 import Photos
 @preconcurrency import ScreenCaptureKit
@@ -247,3 +248,4 @@ private final class CaptureDelegate: NSObject, SCContentSharingPickerObserver, S
         Task { @MainActor in await owner?.streamStopped(stream, error: error) }
     }
 }
+#endif

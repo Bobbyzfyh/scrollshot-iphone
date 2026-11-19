@@ -1,3 +1,4 @@
+#if !targetEnvironment(simulator)
 @preconcurrency import ScreenCaptureKit
 import CoreMedia
 import CoreImage
@@ -114,3 +115,4 @@ final class FrameCollector: NSObject, SCStreamOutput, @unchecked Sendable {
         }
     }
 }
+#endif

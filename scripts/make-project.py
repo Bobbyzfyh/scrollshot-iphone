@@ -99,6 +99,7 @@ for target, values in [('project', base), ('app', app), ('tests', tests)]:
         if target == 'project':
             values.update({'SWIFT_OPTIMIZATION_LEVEL': '-Onone' if config == 'Debug' else '-O',
                            'GCC_OPTIMIZATION_LEVEL': '0' if config == 'Debug' else 's',
+                           'ONLY_ACTIVE_ARCH': 'YES' if config == 'Debug' else 'NO',
                            'DEBUG_INFORMATION_FORMAT': 'dwarf' if config == 'Debug' else 'dwarf-with-dsym',
                            'ENABLE_TESTABILITY': 'YES' if config == 'Debug' else 'NO'})
         obj(target + ':' + config, f'isa = XCBuildConfiguration; buildSettings = {settings(values)}; name = {config};')
