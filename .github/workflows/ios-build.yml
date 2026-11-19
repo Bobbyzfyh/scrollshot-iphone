@@ -20,8 +20,12 @@ jobs:
           xcrun --sdk iphoneos --show-sdk-version | awk -F. '{ exit !($1 >= 27) }'
       - name: Build native app without signing
         run: bash scripts/build-unsigned.sh
+      - name: Test native image adapters and rendering
+        run: bash scripts/test-ios.sh
       - uses: actions/upload-artifact@v4
         with:
           name: Scrollshot-UNSIGNED-not-ready-to-install
-          path: .build/Scrollshot-unsigned.ipa
+          path: |
+            .build/Scrollshot-unsigned.ipa
+            .build/home-simulator.png
           retention-days: 1
